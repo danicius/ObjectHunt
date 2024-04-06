@@ -32,7 +32,7 @@ struct ContentView: View {
     @State private var showFeelView = false
      @State private var showCoolView = false
      @State private var showFetchView = false
-    @State private var videoID = "dQw4w9WgXcQ"  // Example video ID
+    @State private var videoID = "pJHrnQ5TNSY"  // Example video ID
 
     
 
@@ -41,39 +41,29 @@ struct ContentView: View {
 
     var body: some View {
         
-      NavigationView {
+       
             VStack {
                 YouTubeView(videoID: videoID)
-                                .frame(height: 200)
+                                .frame(height: 400)
+                                .frame(width:700)
+                
                             Button("Load Random Video") {
                                 // Here you would change the videoID to a new random video
+                                
                                 videoID = "newRandomVideoID"  // Replace with actual logic to fetch a new ID
                             }
-                Button("Feel it") {
-                    // Navigate to FeelView
-                showFeelView = true
-                }
-                .background(NavigationLink(destination: FeelView(), isActive: $showFeelView) { EmptyView() }
-                                            .hidden())
-                Button("Cool it") { showCoolView = true }
-                    // Navigate to CoolView
-                    .background(NavigationLink(destination: CoolView(), isActive: $showCoolView) { EmptyView() }
-                                                .hidden())
                 
-                Button("Fetch it") {
-                    // Navigate to FetchView
-                    showFetchView = true }
-                .background(NavigationLink(destination: CoolView(), isActive: $showCoolView) { EmptyView() }
-                                            .hidden())
+                
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0))
             }
-            .padding(.horizontal)
+        
+            .padding(.vertical)
             .navigationTitle("Random Video Generator on VisionPro!")
             .navigationBarTitleDisplayMode(.automatic)
             
-        }
+        
     
         .padding()
         .onChange(of: showImmersiveSpace) { _, newValue in
