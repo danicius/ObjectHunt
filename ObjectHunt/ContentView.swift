@@ -1,92 +1,50 @@
-//
-//  ContentView.swift
-//  ObjectHunt
-//
-//  Created by Danielle Alvarez on 4/5/24.
-//
-
 import SwiftUI
-import RealityKit
-import RealityKitContent
 import WebKit
 
 struct YouTubeView: UIViewRepresentable {
-    var videoID: String
+    var videoID: String
 
-    func makeUIView(context: Context) -> WKWebView {
-        return WKWebView()
-    }
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
 
-    func updateUIView(_ uiView: WKWebView, context: Context) {
-        guard let youtubeURL = URL(string: "https://www.youtube.com/embed/\(videoID)") else { return }
-        uiView.scrollView.isScrollEnabled = false
-        uiView.load(URLRequest(url: youtubeURL))
-    }
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        guard let youtubeURL = URL(string: "https://www.youtube.com/embed/\(videoID)?autoplay=1&playsinline=1") else { return }
+        uiView.scrollView.isScrollEnabled = false
+        uiView.load(URLRequest(url: youtubeURL))
+    }
 }
 
-struct ContentView: View {
+struct Content_View: View {
+    @State private var videohasIndex = 0  // Index to keep track of the current video
+    let store_videoIDs = ["pJHrnQ5TNSY", "Azb8buRwvZM", "CLNQP8lrYIk", "SK29WIUumP8", "D60EQW9xtVQ","AchB01UZe2g","erEgovG9WBs","cJmhs_aMOKQ","l87_dbz2VE8","ntMvooFqnkI","Lf66gVoFjOE","lkIFF4maKMU","O5nskjZ_GoI","SzJ46YA_RaA","q-_ezD9Swz4","H09PmP5tsy8","r9I4DuGmJ2Y","x7X9w_GIm1s","fabelAs_m08","4TUgqm2gJkE","M4ubFru2O80","4gwYkEK0gOk","4RDP-LZoNmU","aBN7_DBa2VQ","4INqzkH7abY","LA6XoiVN1tk","lz4R4FHFr90","WG2IKXDoA2Y","tnb8XcGbYCM","GTXP2FzQS94","MJ5CRZFSlAU","kIID5FDi2JQ","Dru78IHxQE0"
+        ,"AvFl6UBZLv4","kF8I_r9XT7A","0cuO5OSDMbw","Z0JvYF0WF1o","UBVV8pch1dM","DFHuu6yZiH8"
+        ,"75d_29QWELk","ax0yjzbSBa4","gG7uCskUOrA","GhABWQC3YDs","0lZRAShqft0","iWT0kl1k32M"
+        ,"q0a0OX0wnaY","wUVvTqvjUaM"]  // This array stores a list of 50 youtube video IDs
 
-    @State private var showImmersiveSpace = false
-    @State private var immersiveSpaceIsShown = false
-    @State private var gifUrl: URL?
-    @State private var showFeelView = false
-     @State private var showCoolView = false
-     @State private var showFetchView = false
-    @State private var videoID = "pJHrnQ5TNSY"  // Example video ID
+    var body: some View {
+        VStack {
+            YouTubeView(videoID: store_videoIDs[videohasIndex])
+                .frame(width: 900, height: 600)  // Setting a frame for our youtube video to play in
 
-    
-
-    @Environment(\.openImmersiveSpace) var openImmersiveSpace
-    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-
-    var body: some View {
-        
-       
-            VStack {
-                YouTubeView(videoID: videoID)
-                                .frame(height: 400)
-                                .frame(width:700)
-                
-                            Button("Load Random Video") {
-                                // Here you would change the videoID to a new random video
-                                
-                                videoID = "newRandomVideoID"  // Replace with actual logic to fetch a new ID
-                            }
-                
-                
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 25.0))
-            }
-        
-            .padding(.vertical)
-            .navigationTitle("Random Video Generator on VisionPro!")
-            .navigationBarTitleDisplayMode(.automatic)
-            
-        
-    
-        .padding()
-        .onChange(of: showImmersiveSpace) { _, newValue in
-            Task {
-                if newValue {
-                    switch await openImmersiveSpace(id: "ImmersiveSpace") {
-                    case .opened:
-                        immersiveSpaceIsShown = true
-                    case .error, .userCancelled:
-                        fallthrough
-                    @unknown default:
-                        immersiveSpaceIsShown = false
-                        showImmersiveSpace = false
-                    }
-                } else if immersiveSpaceIsShown {
-                    await dismissImmersiveSpace()
-                    immersiveSpaceIsShown = false
-                }
-            }
-        }
-    }
+            Button("Load the Next Random Video!!!") {
+        
+                videohasIndex = Int.random(in: 0..<store_videoIDs.count)
+            }
+            .padding()
+            .background(Color.red)
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 34.0)) // Adding a button to load random videos
+        }
+        .padding()
+        .navigationTitle("Random Video Generator on VisionPro!")
+        .navigationBarTitleDisplayMode(.automatic)
+    }
 }
 
-#Preview(windowStyle: .automatic) {
-    ContentView()
+// Setting up the preview for Canvas of SwiftUI
+struct Content_View_Previews: PreviewProvider {
+    static var previews: some View {
+        Content_View()
+    }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct ObjectHuntApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Content_View()
         }
 
         ImmersiveSpace(id: "ImmersiveSpace") {
