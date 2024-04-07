@@ -1,5 +1,11 @@
-This is Vision Video Roulette, 
-an app developed for the new Apple Vision Pro. 
+#This is Vision Video Roulette, 
+
+https://www.youtube.com/watch?v=YwWYQJXIPWs
+
+
+
+
+An app developed for the new Apple Vision Pro. 
 The development of this app was inspired by the lack of the typical YouTube app on the Apple Vision Pro. 
 We wanted users to have a similar viewing experience as the YouTube app, whether they were seeking entertainment, education, or inspiration. 
 This is when we came up with the idea of Vision Video Roulette. Our project was built using the Swift UI’s web kit and we used Xcode to develop our app for the Apple platform. 
